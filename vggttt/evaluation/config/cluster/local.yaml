@@ -1,0 +1,13 @@
+
+seq_id_maps_dir: /data/seq-id-maps/
+
+
+re10k_root_dir: /data/re10k/re10k
+dtu_root_dir: /data/dtu/dtu_test_mvsnet_release
+seven_scenes_root_dir: /data/7scenes
+nrgbd_root_dir: /data/nrgbd
+eth3d_root_dir: /data/eth3d
+wayspots_root_dir: /data/wayspots
+monst3r_root_dir: /data/monst3r
+scannet_root_dir: /data/scannet_v2
+waymo_root_dir: /data/waymo_graphs

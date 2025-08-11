@@ -1,0 +1,10 @@
+
+dataset:
+  _target_: vggttt.evaluation.datasets.eth3d.ETH3DScene
+  root_dir: ${cluster.eth3d_root_dir}
+  _partial_: true
+
+seq_id_map: ${cluster.seq_id_maps_dir}/ETH3D_mv-recon_seq-id-map-kf5.json
+icp_threshold: 0.1
+
+name: eth3d_pointmap

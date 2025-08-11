@@ -1,0 +1,86 @@
+# @package _global_
+
+defaults:  
+  - /datasets: all
+
+
+experiment_name: vggt_ttt
+
+loss:
+  _target_: vggttt.nets.vggt.training.loss.MultitaskLoss
+  camera: 
+    weight: 5.0
+    loss_type: "l1"
+    weight_trans: 1.0
+  depth:
+    weight: 1.0
+    gradient_loss_fn: "grad" 
+    valid_range: 0.98
+  point: 
+    weight: 1.0
+    gradient_loss_fn: "normal" 
+    valid_range: 0.98
+  track:
+    weight: 0.05
+
+canonical_lr: 1e-4
+canonical_batch_size: 16  # training on 8 GPUs
+micro_batch_size: 2  # max 24 images per collection, max 48 images per GPU -> 2
+
+lr_cos_decay: True
+warmup_steps: 1000
+warmup_ratio: 0.1
+optimizer:
+  weight_decay: 0.05
+
+
+optimizer_groups:
+  - patterns: ["^model.aggregator.global_blocks.\\d+.attn"]  # Just tune the global attention blocks
+    optim_options: {}
+  - patterns: ["(.*?)"]  # Everything else is frozen
+    optim_options:
+      lr: 0.0
+
+freeze_weight_patterns: []
+
+data:
+  num_batches_per_epoch:
+    train: 10000
+    val: 500
+  
+  kwargs:
+    rescale_aug_pct: 0.1
+    long_side_img_size: 518
+    patch_size: 14
+    overlap_version: "sym"
+  
+  test_overrides:
+    rescale_aug_pct: 0.0
+
+  sampler:
+    num_imgs_range: [2, 24]
+    aspect_ratio_range: [0.5, 2.0]
+
+model:
+  _target_: vggttt.nets.vggt.models.vggt.VGGT
+  img_size: ${data.kwargs.long_side_img_size}
+  camera_attn_class:
+    _target_: vggttt.nets.vggt.layers.attention.Attention
+    _partial_: True
+  global_attn_class:
+    _target_: vggttt.nets.ttt_attention.FastWeightAttention
+    _partial_: True
+    muon_update_steps: 5
+    base_lr: 0.01
+    mlp_ratio: 4
+    short_conv_size_qkv: [0, 0, 3]
+    div_lr_by_seq_len: False
+  gradient_checkpoint: True
+  init_weights: "VGGT-1B"
+  use_track_head: False 
+
+
+trainer:
+  max_steps: 100_000
+  accumulate_grad_batches: 1
+  check_val_every_n_epoch: 1

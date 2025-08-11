@@ -1,0 +1,18 @@
+# @package _global_
+
+model:
+  _target_: vggttt.train.load_model_only
+  ckpt: null
+  overrides: []
+
+fwd_kwargs:
+  memory_efficient_inference: True
+  num_ttt_steps: 2
+  log_ttt_details: False
+  # Use the best weights from the `num_ttt_steps` optimization iterations. Requires log_ttt_details to be True
+  use_best_weights: False
+
+
+map_kwargs:
+  memory_efficient_inference: True
+  num_ttt_steps: 2

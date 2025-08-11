@@ -1,0 +1,12 @@
+
+dataset:
+  _target_: vggttt.evaluation.datasets.wayspots.Wayspots
+  root_dir: ${cluster.wayspots_root_dir}
+  _partial_: true
+
+eval_scenes: ["bears", "cubes", "inscription", "lawn", "map", "squarebench", "statue", "tendrils", "therock", "wintersign"]
+
+map_imgs_stride: 3
+query_imgs_stride: 20
+
+name: wayspots_visloc_${.map_imgs_stride}map_stride

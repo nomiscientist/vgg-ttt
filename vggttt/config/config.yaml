@@ -1,0 +1,87 @@
+defaults:  
+  - _self_  
+  - optimizer: adamw
+  - model: vggt
+  - cluster: local
+  - overrides:
+  # Disable logging to files
+  - override hydra/job_logging: stdout
+  
+hydra:  
+  # Disable creation of sub-directories for each run
+  output_subdir: null  
+  # Disable changing work directory to run sub-directory
+  run:  
+    dir: .
+  
+
+run_train: True
+experiment_name: vggttt
+run_hash:
+run_name: ${oc.env:SUBMIT_NAME,null}
+seed: 1234
+ckpt_path: 
+just_weights_path:
+dry_run: False
+benchmark_dataloading: False
+run_initial_validation: False
+just_validate: False
+profile_memory: False
+
+canonical_lr: 1e-5
+canonical_batch_size: 8
+
+sequence_parallel_size: 1
+micro_batch_size: 8
+num_gpus: ${oc.env:WORLD_SIZE,1}
+batch_size: ${eval:'${data.sampler.micro_batch_size} * ${.num_gpus} // ${sequence_parallel_size} * ${trainer.accumulate_grad_batches}'}
+
+lr_scaler: ${eval:'${batch_size} / ${canonical_batch_size}'}
+lr: ${eval:'${canonical_lr} * ${lr_scaler}'}
+lr_final_ratio: 0.01
+lr_final: ${eval:'${lr} * ${lr_final_ratio}'}
+lr_cos_decay: True
+warmup_steps: 1000
+warmup_ratio: 0.1
+
+use_mmap_ckpt_io: False
+
+trainer_class: 
+  _target_: vggttt.trainer.vggt.VGGT
+  _recursive_: False
+
+ckpt_callback:
+  monitor: mAA@30
+  mode: max
+
+data:
+  datasets:
+    train: [dl3dv]
+    val: [megadepth]
+  
+  num_batches_per_epoch:
+    train: 1000
+    val: 100
+
+  kwargs:
+    long_side_img_size: 512
+  
+  test_overrides:
+
+  loader:
+    num_workers: 6
+    persistent_workers: ${eval:'${.num_workers} > 0'}
+    pin_memory: ${eval:'${.num_workers} > 0'}
+
+  sampler:
+    seed: ${seed}
+    aspect_ratio_range: [0.33, 1.0]
+    num_imgs_range: [4, 4]
+    micro_batch_size: ${micro_batch_size}
+
+trainer:
+  _target_: lightning.Trainer
+  _partial_: True
+  gradient_clip_val: 1.0
+  strategy: auto
+  accumulate_grad_batches: 1

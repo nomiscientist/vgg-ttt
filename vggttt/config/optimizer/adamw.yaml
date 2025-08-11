@@ -1,0 +1,9 @@
+
+_target_: torch.optim.AdamW
+# Linear learning rate scaling
+lr: ${lr}
+weight_decay: 0.05
+foreach: False  # Uses extra memory
+fused: False
+betas: [0.9, 0.95]
+eps: 1e-6  # float-16 precision underflow

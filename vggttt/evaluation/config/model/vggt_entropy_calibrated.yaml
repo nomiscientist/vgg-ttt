@@ -1,0 +1,7 @@
+# @package _global_
+
+
+model:
+  _target_: vggttt.nets.vggt.models.vggt.VGGT.from_pretrained
+  pretrained_model_name_or_path: "facebook/VGGT-1B"
+  max_train_len: 32856 # 24 * (518 // 14) ** 2

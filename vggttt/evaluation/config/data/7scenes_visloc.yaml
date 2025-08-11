@@ -1,0 +1,13 @@
+
+dataset:
+  _target_: vggttt.evaluation.datasets.seven_scenes.SevenScenes
+  root_dir: ${cluster.seven_scenes_root_dir}
+  _partial_: true
+
+eval_scenes: ["chess", "fire", "heads", "office", "pumpkin", "redkitchen", "stairs"]
+
+
+map_imgs_stride: 50
+query_imgs_stride: 20
+
+name: 7scenes_visloc_${.map_imgs_stride}map_stride

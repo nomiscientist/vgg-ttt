@@ -1,0 +1,70 @@
+# @package _global_
+
+# Baremetal configuration referencing dataset paths directly on the host filesystem.
+# Override paths via Hydra to match your setup.
+
+log_dir: /outputs
+
+data:
+  overlap_mats_path: /data/covis_overlap
+
+  megadepth:
+    dataset_path: /data/megadepth_graphs
+  co3d:
+    dataset_path: /data/co3d_graphs_fewview_train
+  tartanair:
+    dataset_path: /data/tartanair_graphs
+  hm3d:
+    dataset_path: /data/omnidata_graphs/hm3d
+  replica:
+    dataset_path: /data/omnidata_graphs/replica
+  replica_gso:
+    dataset_path: /data/omnidata_graphs/replica_gso
+  taskonomy:
+    dataset_path: /data/omnidata_graphs/taskonomy
+  kubric_4d_mv:
+    dataset_path: /data/kubric_4d_mv/
+  wildrgbd:
+    dataset_path: /data/wildrgbd/
+  blended_mvg:
+    dataset_path: /data/blended-mvg/
+  cubify_anything:
+    dataset_path: /data/ca-1m/
+  hypersim:
+    dataset_path: /data/hypersim/data/
+  kubric:
+    dataset_path: /data/kubric_tracks_3D_dense/train/
+  matrix_city:
+    dataset_path: /data/matrix-city/
+  mapillary_metropolis:
+    dataset_path: /data/mapillary_metropolis/
+  midair:
+    dataset_path: /data/midair/MidAir/
+  scannet:
+    dataset_path: /data/scannet_v2/
+  scannetpp:
+    dataset_path: /data/scannetpp_undistort/
+    original_dataset_path: /data/scannetpp/
+  vkitti2:
+    dataset_path: /data/VKITTI2/
+  mpsd:
+    dataset_path: /data/mpsd/preproc/
+  dl3dv:
+    dataset_path: /data/dl3dv_cut3r/split_by_scene/
+  aria_synth_env:
+    dataset_path: /data/aria/ase/
+  tartanairv2:
+    dataset_path: /data/tartan/tartanair2/
+  parallel_domain_4d:
+    dataset_path: /data/parallel-domain-4d/
+  unrealstereo4k:
+    dataset_path: /data/unrealstero4d-q/
+  spring:
+    dataset_path: /data/spring/
+  dynamic_replica:
+    dataset_path: /data/dynamic_replica/dynamic_replica_data/
+  mapanything_dataset_metadata:
+    dataset_path: /data/map-anything/mapanything_dataset_metadata/
+
+trainer:
+  precision: bf16-mixed

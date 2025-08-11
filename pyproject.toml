@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vggttt"
+version = "0.1.0"
+description = "VGG-T^3 package"
+readme = "README.md"
+requires-python = ">=3.11"
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project.optional-dependencies]
+evaluation = [
+    "open3d-cpu",
+]
+train = [
+    "lightning>=2.5,<2.6",
+    "aim>=3.19,<3.20",
+    "albumentations==1.4.14",
+    "albucore==0.0.14",
+]
+dev = [
+    "ruff",
+    "pytest>=8.2,<8.3",
+    "ipykernel>=6.29,<6.30",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["vggttt*"]
+
+[tool.ruff]
+line-length = 120
+select = ["F", "E", "W", "I001"]

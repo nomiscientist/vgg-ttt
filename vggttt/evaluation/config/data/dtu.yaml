@@ -1,0 +1,10 @@
+
+dataset:
+  _target_: vggttt.evaluation.datasets.dtu.DTUScene
+  root_dir: ${cluster.dtu_root_dir}
+  _partial_: true
+
+seq_id_map: ${cluster.seq_id_maps_dir}/DTU_mv-recon_seq-id-map-kf5.json
+icp_threshold: 100
+
+name: dtu_pointmap

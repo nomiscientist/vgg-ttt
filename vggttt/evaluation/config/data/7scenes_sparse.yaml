@@ -1,0 +1,10 @@
+name: 7scenes_sparse
+
+
+dataset:
+  _target_: vggttt.evaluation.datasets.seven_scenes.SevenScenesScene
+  root_dir: ${cluster.seven_scenes_root_dir}
+  _partial_: true
+
+seq_id_map: ${cluster.seq_id_maps_dir}/7scenes_mv-recon_seq-id-map-kf200.json
+icp_threshold: 0.1

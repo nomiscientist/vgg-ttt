@@ -1,0 +1,12 @@
+
+dataset:
+  _target_: vggttt.evaluation.datasets.seven_scenes.SevenScenes
+  root_dir: ${cluster.seven_scenes_root_dir}
+  _partial_: true
+
+icp_threshold: 0.1
+eval_scenes: ["chess", "fire", "heads", "office", "pumpkin", "redkitchen", "stairs"]
+n_ref_views: 10
+additional_views: 0
+
+name: 7scenes_${.n_ref_views}ref_views_${.additional_views}add_views

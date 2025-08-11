@@ -1,0 +1,10 @@
+
+dataset:
+  _target_: vggttt.evaluation.datasets.nrgbd.NRGBDScene
+  root_dir: ${cluster.nrgbd_root_dir}
+  _partial_: true
+
+seq_id_map: ${cluster.seq_id_maps_dir}/NRGBD_mv-recon_seq-id-map-kf500.json
+icp_threshold: 0.1
+
+name: nrgbd_sparse

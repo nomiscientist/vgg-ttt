@@ -1,0 +1,24 @@
+defaults:  
+  - _self_  
+  - model: base
+  - data: dtu
+  - cluster: local
+  - override hydra/job_logging: stdout
+  
+hydra:  
+  # Disable creation of sub-directories for each run
+  output_subdir: null  
+  # Disable changing work directory to run sub-directory
+  run:  
+    dir: .
+
+device: cuda
+output_dir: null
+create_vis: false
+store_log_outputs: false
+overwrite: false
+
+patch_size: 14
+target_img_size: 518
+
+fwd_kwargs: {}  # Additional kwargs to pass into the forward pass. Can be overwritten by method configs.

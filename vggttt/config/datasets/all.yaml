@@ -1,0 +1,37 @@
+# @package _global_
+
+data:
+  datasets:
+    train:
+    - aria_synth_env
+    - blended_mvg
+    - co3d
+    - cubify_anything
+    - dl3dv
+    - dynamic_replica
+    # - hm3d  has issues with invalid RGB images and weird renders
+    - hypersim
+    # - kubric_4d_mv
+    - kubric
+    - mapillary_metropolis
+    - matrix_city_aerial
+    - matrix_city_street
+    - megadepth
+    - midair
+    - mpsd
+    - parallel_domain_4d
+    # - replica_gso
+    - replica
+    - scannetpp
+    # - scannet
+    - spring
+    - tartanairv2
+    - taskonomy
+    - unrealstereo4k
+    - vkitti2
+    - waymo
+    - wildrgbd
+    val:
+      - scannetpp
+      - megadepth
+      - tartanairv2
